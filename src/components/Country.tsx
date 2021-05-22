@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export interface Country {
+export interface ICountry {
 	id: string;
 	name: string;
 	nativeName: string;
@@ -16,25 +16,26 @@ export interface Country {
 }
 
 interface CountryProps {
-	country: Country;
+	country: ICountry;
 }
 
-const CountryComp = ({ country }: CountryProps) => {
+const Country = ({ country }: CountryProps) => {
 
 	return (
-		<article className='bg-whiteMain shadow-lg w-4/5 mx-auto my-16 rounded-lg'>
-			<div>
-				<Image
-					src={country.flag}
-					alt={country.name}
-					width={592}
-					height={400}
-					layout='responsive'
-					objectFit='cover'
-					className='rounded-t-lg'
-				/>
-			</div>
-			<div className='py-6 px-5 mt-2'>
+		<article className='bg-whiteMain shadow-lg w-10/12 sm:w-full rounded-lg mx-auto'>
+			
+			<section className='h-48 relative shadow-md'>
+					<Image
+						src={country.flag}
+						alt={country.name}
+						layout='fill'
+						objectFit='cover'
+						priority
+						className='rounded-t-lg'
+					/>
+			</section>
+
+			<section className='py-6 px-5 mt-2'>
 				<h2 className='text-2xl font-extrabold mb-6'>{country.name}</h2>
 				<p className='text-lg font-semibold mb-2'>
 					Population: <span className='font-light'>{country.population.toLocaleString()}</span>
@@ -45,9 +46,10 @@ const CountryComp = ({ country }: CountryProps) => {
 				<p className='text-lg font-semibold mb-2'>
 					Capital: <span className='font-light'>{country.capital}</span>
 				</p>
-			</div>
+			</section>
+
 		</article>
 	);
 };
 
-export default CountryComp;
+export default Country;

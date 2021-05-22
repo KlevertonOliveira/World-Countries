@@ -1,6 +1,22 @@
+import { useGlobalContext } from "../context/context";
+
 const SearchInput = () => {
-  return (
-		<section className='bg-whiteMain text-darkGray flex mt-8 mb-12 lg:mx-6 lg:my-8 p-4 shadow-md lg:w-1/3 font-light'>
+	
+	const {setInputValue} = useGlobalContext();
+
+	const checkPressedKey = (e) =>{
+		let keyCode = e.keyCode ? e.keyCode : e.which;
+		if (keyCode > 47 && keyCode < 58) {
+			e.preventDefault();
+		}
+	}
+
+	const getInputValue = (e) =>{
+		setInputValue(e.target.value);
+	}
+
+	return (
+		<section className='bg-whiteMain text-darkGray flex mt-8 mb-12 lg:my-8 p-4 shadow-md lg:w-2/5 font-light'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				className='h-8 w-8 mx-8'
@@ -19,6 +35,9 @@ const SearchInput = () => {
 				type='text'
 				placeholder='Search for a country...'
 				className='w-full border-none outline-none'
+				onChange={getInputValue}
+				onKeyDown={checkPressedKey}
+				onKeyUp={checkPressedKey}
 			/>
 		</section>
 	);
