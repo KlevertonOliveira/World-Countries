@@ -16,7 +16,7 @@ const SearchInput = () => {
 	}
 
 	return (
-		<section className='bg-whiteMain text-darkGray flex mt-8 mb-12 lg:my-8 p-4 shadow-md lg:w-2/5 font-light'>
+		<section className='bg-whiteMain text-darkGray flex mt-8 mb-12 lg:my-8 p-4 shadow-md lg:w-2/5 font-light dark:bg-darkBlue dark:text-whiteMain'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				className='h-8 w-8 mx-8'
@@ -34,7 +34,7 @@ const SearchInput = () => {
 			<input
 				type='text'
 				placeholder='Search for a country...'
-				className='w-full border-none outline-none'
+				className='w-full border-none outline-none dark:bg-darkBlue dark:text-whiteMain'
 				onChange={getInputValue}
 				onKeyDown={checkPressedKey}
 				onKeyUp={checkPressedKey}
