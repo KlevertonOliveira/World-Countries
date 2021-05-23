@@ -33,7 +33,7 @@ const Country = ({ country }: CountryProps) => {
 					layout='fill'
 					objectFit='cover'
 					priority
-					className='rounded-t-lg'
+					className='rounded-t-md'
 				/>
 			</section>
 
