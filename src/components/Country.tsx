@@ -9,9 +9,9 @@ export interface ICountry {
 	subRegion: string;
 	capital: string;
 	topLevelDomain: string;
-	currencies: Array<{}>;
-	languages: String[];
-	borderCountries: string;
+	currencies: Array<{name:string}>;
+	languages: Array<{name: string}>;
+	borderCountries: string[];
 	flag: string;
 }
 

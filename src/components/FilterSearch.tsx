@@ -14,11 +14,11 @@ const FilterSearch = ({regions}:FilterSearchProps) => {
 	}
 
   return (
-		<section className='bg-whiteMain my-8 p-4 shadow-md w-1/2 lg:w-1/5 lg:flex lg:items-center dark:bg-darkBlue dark:text-whiteMain'>
+		<section className='bg-whiteMain my-8 p-4 shadow-md w-1/2 lg:w-1/5 lg:flex lg:items-center text-veryDarkBlueText dark:bg-darkBlue dark:text-whiteMain'>
 			<select
 				name='regions'
 				id='regions'
-				className='bg-whiteMain text-veryDarkBlue w-full outline-none border-none font-semibold dark:bg-darkBlue dark:text-whiteMain'
+				className='bg-whiteMain text-veryDarkBlueText w-full outline-none border-none font-semibold dark:bg-darkBlue dark:text-whiteMain'
 				onChange={getSelectedRegion}
 				value={selectedRegion}
 			>
@@ -28,7 +28,7 @@ const FilterSearch = ({regions}:FilterSearchProps) => {
 
 				{regions.map((region) => {
 					return (
-						<option value={region} key={region} className='font-semibold'>
+						<option value={region} key={region} className='font-semibold '>
 							{region}
 						</option>
 					);

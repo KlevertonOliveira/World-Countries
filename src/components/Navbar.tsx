@@ -14,9 +14,11 @@ const Navbar = () => {
 	}, [])
 
 	const changeTheme = () =>{
-		document.documentElement.classList.remove(theme);
-		theme === 'light'?
-			saveTheme('dark') : saveTheme('light');
+		setTimeout(() => {
+			document.documentElement.classList.remove(theme);
+			theme === 'light'?
+				saveTheme('dark') : saveTheme('light');
+		}, 100);
 	}
 
 	const saveTheme = (theme:string) =>{
@@ -28,7 +30,7 @@ const Navbar = () => {
   return (
 		<header className='px-8 py-4 shadow-md lg:px-16 bg-whiteMain mb-2 dark:bg-darkBlue'>
 			<nav className='flex items-center justify-between'>
-				<h2 className='font-extrabold text-lg lg:text-xl dark:text-whiteMain'>
+				<h2 className='text-veryDarkBlueText font-extrabold text-lg lg:text-xl dark:text-whiteMain'>
 					Where in the world?
 				</h2>
 				<div className='grid content-center h-12'>
@@ -62,7 +64,7 @@ const Navbar = () => {
 							</svg>
 						)}
 
-						<h2 className='ml-1 text-veryDarkBlue font-semibold dark:text-whiteMain'>
+						<h2 className='ml-1 text-veryDarkBlueText font-semibold dark:text-whiteMain'>
 							{theme === 'light' ? 'Dark Mode' : 'Light Mode'}
 						</h2>
 					</button>
