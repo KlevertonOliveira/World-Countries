@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import Head from 'next/head';
 import Image from 'next/image';
 import ReturnHomeButton from '../../components/ReturnHomeButton';
+import Link from 'next/link';
 
 const getCountryDetails:any = async (id) => {
 	
@@ -28,78 +29,103 @@ const CountryDetails = ({country}:CountryDetailsProps) => {
 
 			<Navbar />
 
-			<main className='bg-veryLightGray dark:bg-veryDarkBlueBackground min-h-screen'>
+			<main className='bg-veryLightGray dark:bg-veryDarkBlueBackground dark:text-whiteMain'>
 				<section className='m-12'>
 					<ReturnHomeButton />
 
-					<div className='grid'>
-						<section className='w-full h-64 relative my-16'>
-							<Image
+					<article className='grid lg:grid-cols-2 gap-10 mt-16 lg:gap-x-20 items-start'>
+						{/* Flag/Image Section */}
+
+						{/* <section className='border-whiteMain border-2 relative h-64 lg:h-72'>
+							<Image src={country.flag} alt={country.name} layout='fill' objectFit='cover'/>
+						</section> */}
+
+						<section className='flex justify-center items-center overflow-hidden h-64 lg:h-80 relative'>
+							<img
 								src={country.flag}
 								alt={country.name}
-								layout='fill'
-								objectFit='cover'
+								className='flex-shrink-0 min-w-full min-h-full'
 							/>
 						</section>
 
-						<section className='dark:text-whiteMain'>
-							<div>
-								<h2>{country.name}</h2>
-								<p>
-									Native Name: <span>{country.nativeName}</span>
-								</p>
-								<p>
-									Region: <span>{country.region}</span>
-								</p>
-								<p>
-									Sub Region: <span>{country.subRegion}</span>
-								</p>
-								<p>
-									Capital: <span>{country.capital}</span>
-								</p>
+						{/* Text/Details Section */}
+						<section>
+							<h2 className='font-extrabold text-3xl mb-8'>{country.name}</h2>
+
+							<div className='grid items-start mb-8 gap-y-6 sm:grid-cols-2 sm:gap-x-10'>
+								{/* First Group of Properties */}
+								<div>
+									<p className='paragraph'>
+										Native name:
+										<span className='span'> {country.nativeName}</span>
+									</p>
+									<p className='paragraph'>
+										Population:
+										<span className='span'>
+											{' '}
+											{country.population.toLocaleString()}
+										</span>
+									</p>
+									<p className='paragraph'>
+										Region:
+										<span className='span'> {country.region}</span>
+									</p>
+									<p className='paragraph'>
+										Sub Region:
+										<span className='span'> {country.subRegion}</span>
+									</p>
+									<p className='paragraph'>
+										Capital:
+										<span className='span'> {country.capital}</span>
+									</p>
+								</div>
+
+								{/* Second Group of Properties */}
+								<div>
+									<p className='paragraph'>
+										Top Level Domain:
+										<span className='span'> {country.topLevelDomain}</span>
+									</p>
+									<p className='paragraph'>
+										Currencies:
+										{country.currencies.map((currency, index) => {
+											return (
+												<span key={index} className='span'>
+													{` ${currency.name}`}
+													{index + 1 === country.currencies.length ? '' : ', '}
+												</span>
+											);
+										})}
+									</p>
+									<p className='paragraph'>
+										Languages:
+										{country.languages.map((language, index) => {
+											return (
+												<span key={index} className='span'>
+													{` ${language.name}`}
+													{index + 1 === country.languages.length ? '' : ', '}
+												</span>
+											);
+										})}
+									</p>
+								</div>
 							</div>
 
+							{/* Third group of properties */}
 							<div>
-								<p>
-									Top Level Domain: <span>{country.topLevelDomain}</span>
-								</p>
-								<p>
-									Currencies:
-									{country.currencies.map((currency, index) => {
-										return (
-											<span key={index}>
-												{` ${currency.name}`}
-												{index + 1 === country.currencies.length ? '' : ', '}
+								<h3 className='text-xl font-semibold'>Border Countries:</h3>
+								<div className='grid grid-cols-3 lg:grid-cols-4 gap-4 pt-6'>
+									{country.borderCountries.map((borderCountry, index) => (
+										<Link key={borderCountry.id} href={`/countries/${borderCountry.id}`}>
+											<span className='flex justify-center items-center p-2 shadow-lg dark:bg-darkBlue cursor-pointer'>
+												{borderCountry.name}
 											</span>
-										);
-									})}
-								</p>
-
-								<p>
-									Languages: 
-									{country.languages.map((language, index) => {
-										return (
-											<span key={index}>
-												{` ${language.name}`}
-												{index + 1 === country.languages.length ? '' : ','}
-											</span>
-										);
-									})}
-								</p>
-							</div>
-
-							<div>
-								<h3>
-									Border Countries:
-									{
-										country.borderCountries.map((borderCountry, index)=>{
-											return <span key={index}>{borderCountry}</span>
-										})
-									}
-								</h3>
+										</Link>
+									))}
+								</div>
 							</div>
 						</section>
-					</div>
+					</article>
 				</section>
 			</main>
 		</>
@@ -143,13 +169,19 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 		topLevelDomain,
 	} = countryDetails;
 
-	// Gets all current country's border countries with all details.
+	// Gets an array of current country's all border countries with all details.
 	const borderCountriesDetailed:any = await Promise.all(
 		borders.map((borderCountry)=>getCountryDetails(borderCountry))
 	)
 
 	// Maps the previous array to get only the name of each border country.
-	const borderCountries = borderCountriesDetailed.map((country)=> country.name);
+	const borderCountries = borderCountriesDetailed.map((country)=> {
+		return {
+			id: country.alpha3Code, 
+			name: country.name
+		}
+	});
+	
 
   const country:ICountry = {
 		id: alpha3Code,

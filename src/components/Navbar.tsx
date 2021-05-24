@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from 'next/link';
 
 const Navbar = () => {
 	
@@ -30,9 +31,11 @@ const Navbar = () => {
   return (
 		<header className='px-8 py-4 shadow-md lg:px-16 bg-whiteMain mb-2 dark:bg-darkBlue'>
 			<nav className='flex items-center justify-between'>
-				<h2 className='text-veryDarkBlueText font-extrabold text-lg lg:text-xl dark:text-whiteMain'>
-					Where in the world?
-				</h2>
+				<Link href='/'>
+					<h2 className='text-veryDarkBlueText font-extrabold text-lg lg:text-xl dark:text-whiteMain cursor-pointer'>
+						Where in the world?
+					</h2>
+				</Link>
 				<div className='grid content-center h-12'>
 					<button
 						className='flex cursor-pointer focus:outline-none'

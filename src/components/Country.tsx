@@ -11,7 +11,11 @@ export interface ICountry {
 	topLevelDomain: string;
 	currencies: Array<{name:string}>;
 	languages: Array<{name: string}>;
-	borderCountries: string[];
+	
+	borderCountries: Array<
+		{id:string, name:string}
+	>;
+	
 	flag: string;
 }
 
