@@ -2,9 +2,11 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import {ICountry} from '../../components/Country';
 import Navbar from '../../components/Navbar';
 import Head from 'next/head';
-import Image from 'next/image';
 import ReturnHomeButton from '../../components/ReturnHomeButton';
 import Link from 'next/link';
+import { removeParenthesisContentFromString } from '../../Utils/removeParenthesisContentFromString';
+import { useGlobalContext } from '../../context/context';
+import { useEffect } from 'react';
 
 const getCountryDetails:any = async (id) => {
 	
@@ -21,6 +23,12 @@ interface CountryDetailsProps{
 
 const CountryDetails = ({country}:CountryDetailsProps) => {
 
+	const {setInputValue} = useGlobalContext();
+
+	useEffect(() => {
+		setInputValue('')
+	}, [])
+
   return (
 		<>
 			<Head>
@@ -31,7 +39,7 @@ const CountryDetails = ({country}:CountryDetailsProps) => {
 
 			<main className='bg-veryLightGray dark:bg-veryDarkBlueBackground dark:text-whiteMain'>
 				<section className='m-12'>
-					<ReturnHomeButton />
+					<ReturnHomeButton title={'Back'}/>
 
 					<article className='grid lg:grid-cols-2 gap-10 mt-16 lg:gap-x-20 items-start'>
 						{/* Flag/Image Section */}
@@ -117,7 +125,7 @@ const CountryDetails = ({country}:CountryDetailsProps) => {
 								<div className='grid grid-cols-3 lg:grid-cols-4 gap-4 pt-6'>
 									{country.borderCountries.map((borderCountry, index) => (
 										<Link key={borderCountry.id} href={`/countries/${borderCountry.id}`}>
-											<span className='flex justify-center items-center p-2 shadow-lg dark:bg-darkBlue cursor-pointer'>
+											<span className='flex justify-center items-center p-2 shadow-lg dark:bg-darkBlue cursor-pointer hover:opacity-70'>
 												{borderCountry.name}
 											</span>
 										</Link>
@@ -151,10 +159,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
-	
 	const countryDetails = await getCountryDetails(params.id);
-		
-  const {
+
+	const {
 		alpha3Code,
 		capital,
 		currencies,
@@ -169,23 +176,28 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 		topLevelDomain,
 	} = countryDetails;
 
+	// Removing parenthesis, as well as the content limited by them.
+	const countryName = removeParenthesisContentFromString(name);
+
 	// Gets an array of current country's all border countries with all details.
-	const borderCountriesDetailed:any = await Promise.all(
-		borders.map((borderCountry)=>getCountryDetails(borderCountry))
-	)
+	const borderCountriesDetailed: any = await Promise.all(
+		borders.map((borderCountry) => getCountryDetails(borderCountry))
+	);
 
-	// Maps the previous array to get only the name of each border country.
-	const borderCountries = borderCountriesDetailed.map((country)=> {
+	// Maps the previous array to get both id and name of each border country.
+	const borderCountries = borderCountriesDetailed.map((country) => {
+
+		const countryName = removeParenthesisContentFromString(country.name);
+
 		return {
-			id: country.alpha3Code, 
-			name: country.name
-		}
+			id: country.alpha3Code,
+			name: countryName,
+		};
 	});
-	
 
-  const country:ICountry = {
+	const country: ICountry = {
 		id: alpha3Code,
-		name,
+		name: countryName,
 		nativeName,
 		population,
 		region,
@@ -200,7 +212,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
 	return {
 		props: {
-			country
+			country,
 		},
 	};
 };

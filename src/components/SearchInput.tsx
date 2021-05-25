@@ -16,7 +16,10 @@ const SearchInput = () => {
 	}
 
 	return (
-		<section className='bg-whiteMain text-darkGray flex mt-8 mb-12 lg:my-8 p-4 shadow-md lg:w-2/5 font-light dark:bg-darkBlue dark:text-whiteMain'>
+		<section
+			className='bg-whiteMain text-darkGray flex mt-8 mb-12 lg:my-8 p-4 shadow-md lg:w-2/5 font-light dark:bg-darkBlue dark:text-whiteMain
+		border-gray-100 dark:border-gray-800 border-2'
+		>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				className='h-8 w-8 mx-8'

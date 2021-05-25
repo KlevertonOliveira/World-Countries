@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
-const ReturnHomeButton = () => {
+const ReturnHomeButton = ({title}) => {
   return (
 		<Link href='/'>
-			<a className='inline-block shadow-lg px-8 py-2 text-veryDarkBlueText dark:bg-darkBlue dark:text-whiteMain'>
+			<a className='inline-block shadow-md px-8 py-2 text-veryDarkBlueText dark:bg-darkBlue dark:text-whiteMain
+			  light:border-gray-100 dark:border-gray-800 border-2 hover:opacity-70'>
 				<div className='flex items-center'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
@@ -19,8 +20,8 @@ const ReturnHomeButton = () => {
 							d='M10 19l-7-7m0 0l7-7m-7 7h18'
 						/>
 					</svg>
-					<div className='ml-3 text-veryDarkBlueText dark:text-whiteMain'>
-						Back
+					<div className='ml-3 text-veryDarkBlueText dark:text-whiteMain font-semibold'>
+						{title}
 					</div>
 				</div>
 			</a>
