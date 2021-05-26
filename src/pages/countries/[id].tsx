@@ -1,12 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {ICountry} from '../../components/Country';
-import Navbar from '../../components/Navbar';
 import Head from 'next/head';
 import ReturnHomeButton from '../../components/ReturnHomeButton';
 import Link from 'next/link';
 import { removeParenthesisContentFromString } from '../../Utils/removeParenthesisContentFromString';
 import { useGlobalContext } from '../../context/context';
 import { useEffect } from 'react';
+import Layout from '../../components/Layout';
 
 const getCountryDetails:any = async (id) => {
 	
@@ -35,107 +35,108 @@ const CountryDetails = ({country}:CountryDetailsProps) => {
 				<title>{country.name}</title>
 			</Head>
 
-			<Navbar />
+			<Layout>
+				
+				<div className='bg-veryLightGray dark:bg-veryDarkBlueBackground dark:text-whiteMain'>
+					<section className='m-12'>
+						<ReturnHomeButton title={'Back'}/>
 
-			<main className='bg-veryLightGray dark:bg-veryDarkBlueBackground dark:text-whiteMain'>
-				<section className='m-12'>
-					<ReturnHomeButton title={'Back'}/>
+						<article className='grid lg:grid-cols-2 gap-10 mt-16 lg:gap-x-20 items-start'>
+							{/* Flag/Image Section */}
 
-					<article className='grid lg:grid-cols-2 gap-10 mt-16 lg:gap-x-20 items-start'>
-						{/* Flag/Image Section */}
+							{/* <section className='border-whiteMain border-2 relative h-64 lg:h-72'>
+								<Image src={country.flag} alt={country.name} layout='fill' objectFit='cover'/>
+							</section> */}
 
-						{/* <section className='border-whiteMain border-2 relative h-64 lg:h-72'>
-							<Image src={country.flag} alt={country.name} layout='fill' objectFit='cover'/>
-						</section> */}
+							<section className='flex justify-center items-center overflow-hidden h-64 lg:h-80 relative'>
+								<img
+									src={country.flag}
+									alt={country.name}
+									className='flex-shrink-0 min-w-full min-h-full'
+								/>
+							</section>
 
-						<section className='flex justify-center items-center overflow-hidden h-64 lg:h-80 relative'>
-							<img
-								src={country.flag}
-								alt={country.name}
-								className='flex-shrink-0 min-w-full min-h-full'
-							/>
-						</section>
+							{/* Text/Details Section */}
+							<section>
+								<h2 className='font-extrabold text-3xl mb-8'>{country.name}</h2>
 
-						{/* Text/Details Section */}
-						<section>
-							<h2 className='font-extrabold text-3xl mb-8'>{country.name}</h2>
-
-							<div className='grid items-start mb-8 gap-y-6 sm:grid-cols-2 sm:gap-x-10'>
-								{/* First Group of Properties */}
-								<div>
-									<p className='paragraph'>
-										Native name:
-										<span className='span'> {country.nativeName}</span>
-									</p>
-									<p className='paragraph'>
-										Population:
-										<span className='span'>
-											{' '}
-											{country.population.toLocaleString()}
-										</span>
-									</p>
-									<p className='paragraph'>
-										Region:
-										<span className='span'> {country.region}</span>
-									</p>
-									<p className='paragraph'>
-										Sub Region:
-										<span className='span'> {country.subRegion}</span>
-									</p>
-									<p className='paragraph'>
-										Capital:
-										<span className='span'> {country.capital}</span>
-									</p>
-								</div>
-
-								{/* Second Group of Properties */}
-								<div>
-									<p className='paragraph'>
-										Top Level Domain:
-										<span className='span'> {country.topLevelDomain}</span>
-									</p>
-									<p className='paragraph'>
-										Currencies:
-										{country.currencies.map((currency, index) => {
-											return (
-												<span key={index} className='span'>
-													{` ${currency.name}`}
-													{index + 1 === country.currencies.length ? '' : ', '}
-												</span>
-											);
-										})}
-									</p>
-									<p className='paragraph'>
-										Languages:
-										{country.languages.map((language, index) => {
-											return (
-												<span key={index} className='span'>
-													{` ${language.name}`}
-													{index + 1 === country.languages.length ? '' : ', '}
-												</span>
-											);
-										})}
-									</p>
-								</div>
-							</div>
-
-							{/* Third group of properties */}
-							<div>
-								<h3 className='text-xl font-semibold'>Border Countries:</h3>
-								<div className='grid grid-cols-3 lg:grid-cols-4 gap-4 pt-6'>
-									{country.borderCountries.map((borderCountry, index) => (
-										<Link key={borderCountry.id} href={`/countries/${borderCountry.id}`}>
-											<span className='flex justify-center items-center p-2 shadow-lg dark:bg-darkBlue cursor-pointer hover:opacity-70'>
-												{borderCountry.name}
+								<div className='grid items-start mb-8 gap-y-6 sm:grid-cols-2 sm:gap-x-10'>
+									{/* First Group of Properties */}
+									<div>
+										<p className='paragraph'>
+											Native name:
+											<span className='span'> {country.nativeName}</span>
+										</p>
+										<p className='paragraph'>
+											Population:
+											<span className='span'>
+												{' '}
+												{country.population.toLocaleString()}
 											</span>
-										</Link>
-									))}
+										</p>
+										<p className='paragraph'>
+											Region:
+											<span className='span'> {country.region}</span>
+										</p>
+										<p className='paragraph'>
+											Sub Region:
+											<span className='span'> {country.subRegion}</span>
+										</p>
+										<p className='paragraph'>
+											Capital:
+											<span className='span'> {country.capital}</span>
+										</p>
+									</div>
+
+									{/* Second Group of Properties */}
+									<div>
+										<p className='paragraph'>
+											Top Level Domain:
+											<span className='span'> {country.topLevelDomain}</span>
+										</p>
+										<p className='paragraph'>
+											Currencies:
+											{country.currencies.map((currency, index) => {
+												return (
+													<span key={index} className='span'>
+														{` ${currency.name}`}
+														{index + 1 === country.currencies.length ? '' : ', '}
+													</span>
+												);
+											})}
+										</p>
+										<p className='paragraph'>
+											Languages:
+											{country.languages.map((language, index) => {
+												return (
+													<span key={index} className='span'>
+														{` ${language.name}`}
+														{index + 1 === country.languages.length ? '' : ', '}
+													</span>
+												);
+											})}
+										</p>
+									</div>
 								</div>
-							</div>
-						</section>
-					</article>
-				</section>
-			</main>
+
+								{/* Third group of properties */}
+								<div>
+									<h3 className='text-xl font-semibold'>Border Countries:</h3>
+									<div className='grid grid-cols-3 lg:grid-cols-4 gap-4 pt-6'>
+										{country.borderCountries.map((borderCountry, index) => (
+											<Link key={borderCountry.id} href={`/countries/${borderCountry.id}`}>
+												<span className='flex justify-center items-center p-2 shadow-lg dark:bg-darkBlue cursor-pointer hover:opacity-70'>
+													{borderCountry.name}
+												</span>
+											</Link>
+										))}
+									</div>
+								</div>
+							</section>
+						</article>
+					</section>
+				</div>
+			</Layout>
 		</>
 	);
 }
