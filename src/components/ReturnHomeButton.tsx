@@ -4,7 +4,7 @@ const ReturnHomeButton = ({title}) => {
   return (
 		<Link href='/'>
 			<a className='inline-block shadow-md px-8 py-2 text-veryDarkBlueText dark:bg-darkBlue dark:text-whiteMain
-			  light:border-gray-100 dark:border-gray-800 border-2 hover:opacity-70'>
+			  border-gray-200 dark:border-gray-800 border-2 hover:opacity-70'>
 				<div className='flex items-center'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'

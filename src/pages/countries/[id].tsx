@@ -23,10 +23,11 @@ interface CountryDetailsProps{
 
 const CountryDetails = ({country}:CountryDetailsProps) => {
 
-	const {setInputValue} = useGlobalContext();
+	const {setInputValue, setSelectedRegion} = useGlobalContext();
 
 	useEffect(() => {
-		setInputValue('')
+		setInputValue('');
+		setSelectedRegion('');
 	}, [])
 
   return (
@@ -125,9 +126,11 @@ const CountryDetails = ({country}:CountryDetailsProps) => {
 									<div className='grid grid-cols-3 lg:grid-cols-4 gap-4 pt-6'>
 										{country.borderCountries.map((borderCountry, index) => (
 											<Link key={borderCountry.id} href={`/countries/${borderCountry.id}`}>
-												<span className='flex justify-center items-center p-2 shadow-lg dark:bg-darkBlue cursor-pointer hover:opacity-70'>
-													{borderCountry.name}
-												</span>
+												<a>
+													<span className='flex justify-center items-center p-2 shadow-lg dark:bg-darkBlue cursor-pointer hover:opacity-70 border-gray-200 border-2 dark:border-gray-800 font-semibold'> 
+														{borderCountry.name}
+													</span>
+												</a>
 											</Link>
 										))}
 									</div>

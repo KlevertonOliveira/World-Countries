@@ -78,7 +78,7 @@ const Layout = ({children}) => {
 
 			<main>{children}</main>
 
-			<footer className='border-t-2 border-gray-100 dark:border-gray-600 text-veryDarkBlueText dark:text-whiteMain font-semibold p-6 text-center'>
+			<footer className='border-t-2 border-gray-300 dark:border-gray-600 text-veryDarkBlueText dark:text-whiteMain font-semibold p-6 text-center'>
 				<p className='text-lg'>@Kleverton Oliveira - 2021</p>
 				<p>frontendmentor.io Challenge</p>
 			</footer>
