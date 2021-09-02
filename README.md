@@ -37,7 +37,7 @@ Por ser totalmente responsiva, a aplicação atende a visualização por aparelh
 ### Front end
 - HTML5
 - [Tailwind CSS](https://tailwindcss.com/) (CSS Framework)
-- Javascript ES6
+- Typescript
 - [NextJS](https://nextjs.org/) (React Framework)
 
 ## :file_folder: How to run the project / Como executar o projeto
